@@ -9,42 +9,13 @@ if exists("b:current_syntax") && b:current_syntax == 'smarty'
     finish
 endif
 
-runtime! syntax/html.vim
-silent! unlet b:current_syntax
+runtime! syntax/php.vim
 
-setlocal iskeyword+={%
-setlocal iskeyword+=%}
-setlocal iskeyword+=/if
-setlocal iskeyword+=/for
-setlocal iskeyword+=/foreach
+syntax region smartyEcho matchgroup=smartyDelim start=/\s*{%\s*/ end=/%}\s*/ oneline contains=@phpClTop
+syntax match smartyStructure /{%\s*\(if\|elseif\|else\|for\|foreach\|assign\|var\|value\|extends\|include\)[^%}]*%}/ms=s+1
 
-syntax keyword smartyDelim {% %}
-syntax keyword smartyStatement if elseif else /if foreach /foreach for /for
-
-highlight link smartyDelim type
-highlight link smartyStatement Statement
-
-
-"syn region bladeUnescapedEcho matchgroup=bladeEchoDelim start=/@\@<!\s*{!!/ end=/!!}\s*/ oneline contains=@phpClTop containedin=ALLBUT,bladeComment
-"syn region bladeEscapedEcho matchgroup=bladeEchoDelim start=/@\@<!\s*{{{\@!/ end=/}}\s*/ oneline contains=@phpClTop containedin=ALLBUT,bladeComment
-"syn region bladeEscapedEcho matchgroup=bladeEchoDelim start=/@\@<!\s*{{{{\@!/ end=/}}}/ oneline contains=@phpClTop containedin=ALLBUT,bladeComment
-"
-"syn match bladeStructure /\s*@\(else\|empty\|endfor\|endforeach\|endforelse\|endif\|endpush\|endsection\|endunless\|endwhile\|overwrite\|show\|stop\)\>/
-"
-"syn match bladeStructure /\s*@\(append\|choice\|each\|elseif\|extends\|for\|foreach\|forelse\|if\|include\|lang\|push\|section\|stack\|unless\|while\|yield\|\)\>\s*/ nextgroup=bladeParens
-"
-"syn region bladeParens matchgroup=bladeParen start=/(/ end=/)/ contained contains=@bladeAll,@phpClTop
-"
-"syn region bladeComments start=/\s*{{--/ end=/--}}/ contains=bladeComment keepend
-"syn match bladeComment /.*/ contained containedin=bladeComments
-"
-"syn cluster bladeAll contains=bladeStructure,bladeParens
-"
-"hi def link bladeComment        Comment
-"hi def link bladeEchoDelim      Delimiter
-"hi def link bladeParen          Delimiter
-"hi def link bladeStructure      Keyword
-
+hi def link smartyDelim Delimiter
+hi def link smartyStructure Keyword
 
 if !exists('b:current_syntax')
     let b:current_syntax = 'smarty'
