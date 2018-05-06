@@ -12,7 +12,7 @@ endif
 runtime! syntax/php.vim
 
 syntax region smartyEcho matchgroup=smartyDelim start=/\s*{%\s*/ end=/%}\s*/ oneline contains=@phpClTop
-syntax match smartyStructure /{%\s*\(if\|elseif\|else\|for\|foreach\|assign\|var\|value\|extends\|include\)[^%}]*%}/ms=s+1
+syntax match smartyStructure /{%\s*\(if\|elseif\|else\|for\|foreach\|assign\|var\|value\|extends\|include\|block\)[^%}]*%}/ms=s+1
 
 hi def link smartyDelim Delimiter
 hi def link smartyStructure Keyword
